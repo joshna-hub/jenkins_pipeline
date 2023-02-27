@@ -1,30 +1,23 @@
-pipeline 
-{
+pipeline {
     agent any
-
-    stages 
-{
-        stage('Build')
- {
-            steps
- {
-                echo 'Build App'
+    tools {
+        maven 'MAVEN'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Hello World'
+                checkout scmGit(branches: [[name: '*/Demoapplication']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/joshna-hub/jenkins_pipeline.git']])
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
-stage('Test')
- {
-            steps
- {
-                echo 'Test App'
-            }
-        }
-stage('Deploy')
- {
-            steps
- {
-                echo 'Deploy App'
-            }
-        }
-            }
-        }    
-
+    }
+    post {
+        always {
+            junit(
+                allowEmptyResults:true,
+                testResults:'*test-reports/.xml'
+                )
+       }
+   }
+}
