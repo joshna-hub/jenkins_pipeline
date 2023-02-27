@@ -1,11 +1,30 @@
-pipeline {
+pipeline 
+{
     agent any
 
-    stages {
-        stage('I love you joshna') {
-            steps {
-                echo 'I will love you forever and ever'
+    stages 
+{
+        stage('Build')
+ {
+            steps
+ {
+                echo 'Build App'
             }
         }
-    }
-}
+stage('Test')
+ {
+            steps
+ {
+                echo 'Test App'
+            }
+        }
+stage('Deploy')
+ {
+            steps
+ {
+                echo 'Deploy App'
+            }
+        }
+            }
+        }    
+
